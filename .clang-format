@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+ColumnLimit: 80
+AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Empty
+BreakBeforeBraces: Attach
+IndentCaseLabels: true
+PointerAlignment: Right
+SortIncludes: Never
+SpaceBeforeParens: ControlStatements
+Standard: c++17

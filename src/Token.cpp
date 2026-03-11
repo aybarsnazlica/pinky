@@ -1,4 +1,4 @@
-#include "Token.hpp"
+#include "Token.h"
 
 #include <iomanip>
 #include <sstream>

@@ -15,7 +15,7 @@ add_library(pinky_lib
 
 target_include_directories(pinky_lib PUBLIC include)
 
-add_executable(pinky main.cpp)
+add_executable(pinky src/main.cpp)
 target_compile_definitions(pinky PRIVATE PINKY_SEPARATE_COMPILATION)
 target_link_libraries(pinky PRIVATE pinky_lib)
 

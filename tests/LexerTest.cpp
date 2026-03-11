@@ -7,8 +7,8 @@
 #include <utility>
 #include <vector>
 
-#include "Lexer.hpp"
-#include "Token.hpp"
+#include "Lexer.h"
+#include "Token.h"
 
 namespace pinky {
 struct LexerTestAccess {

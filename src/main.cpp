@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
-#include "Lexer.hpp"
-#include "Utils.hpp"
+#include "Lexer.h"
+#include "Utils.h"
 
 namespace {
 constexpr const char *UsageMessage = "Usage: pinky [--verbose] <filename>";

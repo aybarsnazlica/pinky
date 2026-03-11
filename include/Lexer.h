@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Token.hpp"
+#include "Token.h"
 
 namespace pinky {
 struct LexerTestAccess;

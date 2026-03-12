@@ -19,7 +19,17 @@ add_executable(pinky src/main.cpp)
 target_compile_definitions(pinky PRIVATE PINKY_SEPARATE_COMPILATION)
 target_link_libraries(pinky PRIVATE pinky_lib)
 
-add_executable(pinky_tests tests/LexerTest.cpp)
-target_link_libraries(pinky_tests PRIVATE pinky_lib)
+add_executable(lexer_tests
+	tests/TestMain.cpp
+	tests/LexerTest.cpp
+)
+target_link_libraries(lexer_tests PRIVATE pinky_lib)
 
-add_test(NAME pinky_tests COMMAND pinky_tests)
+add_executable(parser_tests
+	tests/TestMain.cpp
+	tests/ParserTest.cpp
+)
+target_link_libraries(parser_tests PRIVATE pinky_lib)
+
+add_test(NAME lexer_tests COMMAND lexer_tests)
+add_test(NAME parser_tests COMMAND parser_tests)

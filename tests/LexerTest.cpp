@@ -1,12 +1,9 @@
-#include <exception>
-#include <functional>
-#include <iostream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "TestFramework.h"
 #include "Lexer.h"
 #include "Token.h"
 
@@ -31,26 +28,9 @@ struct LexerTestAccess {
 } // namespace pinky
 
 namespace {
-class TestFailure : public std::runtime_error {
-public:
-  using std::runtime_error::runtime_error;
-};
-
-template <typename Actual, typename Expected>
-void ExpectEqual(const Actual &actual, const Expected &expected,
-                 const std::string &message) {
-  if (!(actual == expected)) {
-    std::ostringstream stream;
-    stream << message;
-    throw TestFailure(stream.str());
-  }
-}
-
-void ExpectTrue(bool condition, const std::string &message) {
-  if (!condition) {
-    throw TestFailure(message);
-  }
-}
+using pinky::test::ExpectEqual;
+using pinky::test::ExpectTrue;
+using pinky::test::TestFailure;
 
 pinky::Lexer MakePositionedLexer(std::string source, std::size_t curr = 1,
                                  int line = 1) {
@@ -259,52 +239,33 @@ void TestTokenizesStringsAndSkipsLineComments() {
   ExpectEqual(tokens[0].Line, 1, "tokens[0].Line mismatch");
   ExpectEqual(tokens[2].Line, 3, "tokens[2].Line mismatch");
 }
-
-struct TestCase {
-  const char *name;
-  const std::function<void()> fn;
-};
 } // namespace
 
-int main() {
-  const std::vector<TestCase> tests = {
-      {"TestTokenDebugString", TestTokenDebugString},
-      {"TestAdvanceMovesForward", TestAdvanceMovesForward},
-      {"TestPeekReturnsCurrentOrEOF", TestPeekReturnsCurrentOrEOF},
-      {"TestLookaheadReadsFutureOrEOF", TestLookaheadReadsFutureOrEOF},
-      {"TestMatchConsumesOnSuccess", TestMatchConsumesOnSuccess},
-      {"TestHandleNumberAddsIntegerToken", TestHandleNumberAddsIntegerToken},
-      {"TestHandleNumberAddsFloatToken", TestHandleNumberAddsFloatToken},
-      {"TestHandleStringAddsStringToken", TestHandleStringAddsStringToken},
-      {"TestHandleIdentifierAddsKeywordOrIdentifierToken",
+namespace pinky::test {
+
+const std::vector<TestCase> &RegisteredTests() {
+  static const std::vector<TestCase> tests = {
+      {"TESTTokenDebugString", TestTokenDebugString},
+      {"TESTAdvanceMovesForward", TestAdvanceMovesForward},
+      {"TESTPeekReturnsCurrentOrEOF", TestPeekReturnsCurrentOrEOF},
+      {"TESTLookaheadReadsFutureOrEOF", TestLookaheadReadsFutureOrEOF},
+      {"TESTMatchConsumesOnSuccess", TestMatchConsumesOnSuccess},
+      {"TESTHandleNumberAddsIntegerToken", TestHandleNumberAddsIntegerToken},
+      {"TESTHandleNumberAddsFloatToken", TestHandleNumberAddsFloatToken},
+      {"TESTHandleStringAddsStringToken", TestHandleStringAddsStringToken},
+      {"TESTHandleIdentifierAddsKeywordOrIdentifierToken",
        TestHandleIdentifierAddsKeywordOrIdentifierToken},
-      {"TestAddTokenUsesCurrentSliceAndLine",
+      {"TESTAddTokenUsesCurrentSliceAndLine",
        TestAddTokenUsesCurrentSliceAndLine},
-      {"TestTokenizesSingleAndDoubleCharOperators",
+      {"TESTTokenizesSingleAndDoubleCharOperators",
        TestTokenizesSingleAndDoubleCharOperators},
-      {"TestTokenizesKeywordsIdentifiersAndNumbers",
+      {"TESTTokenizesKeywordsIdentifiersAndNumbers",
        TestTokenizesKeywordsIdentifiersAndNumbers},
-      {"TestTokenizesStringsAndSkipsLineComments",
+      {"TESTTokenizesStringsAndSkipsLineComments",
        TestTokenizesStringsAndSkipsLineComments},
   };
 
-  int failures = 0;
-
-  for (const auto &test : tests) {
-    try {
-      test.fn();
-      std::cout << "[PASS] " << test.name << '\n';
-    } catch (const std::exception &error) {
-      ++failures;
-      std::cerr << "[FAIL] " << test.name << ": " << error.what() << '\n';
-    }
-  }
-
-  if (failures != 0) {
-    std::cerr << failures << " test(s) failed\n";
-    return 1;
-  }
-
-  std::cout << tests.size() << " test(s) passed\n";
-  return 0;
+  return tests;
 }
+
+} // namespace pinky::test

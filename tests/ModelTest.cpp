@@ -32,10 +32,6 @@ using pinky::UnOp;
 using pinky::WhileStmt;
 using pinky::test::ExpectEqual;
 
-Token MakeToken(TokenType kind, const std::string &lexeme, int line) {
-  return Token{kind, lexeme, line};
-}
-
 void TestLiteralNodesToString() {
   ExpectEqual(Integer(17, 3).ToString(), std::string("Integer[17]"),
               "Integer ToString mismatch");
@@ -51,19 +47,19 @@ void TestLiteralNodesToString() {
 }
 
 void TestExpressionNodesToString() {
-  UnOp negate(MakeToken(TokenType::Minus, "-", 2),
-              std::make_unique<Integer>(17, 2), 2);
+  UnOp negate(Token{TokenType::Minus, "-", 2}, std::make_unique<Integer>(17, 2),
+              2);
   ExpectEqual(negate.ToString(), std::string("UnOp(\"-\", Integer[17])"),
               "UnOp ToString mismatch");
 
-  BinOp sum(MakeToken(TokenType::Plus, "+", 2),
+  BinOp sum(Token{TokenType::Plus, "+", 2},
             std::make_unique<Identifier>("x", 2),
             std::make_unique<Integer>(1, 2), 2);
   ExpectEqual(sum.ToString(),
               std::string("BinOp(\"+\", Identifier[\"x\"], Integer[1])"),
               "BinOp ToString mismatch");
 
-  LogicalOp logicalAnd(MakeToken(TokenType::And, "and", 2),
+  LogicalOp logicalAnd(Token{TokenType::And, "and", 2},
                        std::make_unique<Bool>(true, 2),
                        std::make_unique<Bool>(false, 2), 2);
   ExpectEqual(logicalAnd.ToString(),

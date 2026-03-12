@@ -6,7 +6,6 @@
 #include "Token.h"
 
 namespace pinky {
-struct LexerTestAccess;
 
 class Lexer {
 public:

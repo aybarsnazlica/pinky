@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 4.1)
 project(pinky)
 
+include(GNUInstallDirs)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -18,6 +20,11 @@ target_include_directories(pinky_lib PUBLIC include)
 add_executable(pinky src/main.cpp)
 target_compile_definitions(pinky PRIVATE PINKY_SEPARATE_COMPILATION)
 target_link_libraries(pinky PRIVATE pinky_lib)
+
+install(
+	TARGETS pinky
+	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 add_executable(lexer_tests
 	tests/TestMain.cpp

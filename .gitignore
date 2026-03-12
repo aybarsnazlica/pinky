@@ -40,8 +40,8 @@
 # debug information files
 *.dwo
 
-.idea
+.cache
+build
+
 scripts
 .DS_Store
-build
-.cache

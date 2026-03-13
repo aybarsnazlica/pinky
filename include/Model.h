@@ -9,16 +9,6 @@
 
 namespace pinky {
 
-class Expr;
-class Stmt;
-class Param;
-class Stmts;
-class FuncCall;
-
-using ExprPtr = std::unique_ptr<Expr>;
-using StmtPtr = std::unique_ptr<Stmt>;
-using ParamPtr = std::unique_ptr<Param>;
-
 class Node {
 public:
   virtual ~Node();
@@ -27,7 +17,11 @@ public:
 
 class Expr : public Node {};
 
+using ExprPtr = std::unique_ptr<Expr>;
+
 class Stmt : public Node {};
+
+using StmtPtr = std::unique_ptr<Stmt>;
 
 class Decl : public Stmt {};
 
@@ -217,6 +211,8 @@ public:
   std::string Name;
   int Line;
 };
+
+using ParamPtr = std::unique_ptr<Param>;
 
 class FuncDecl : public Decl {
 public:

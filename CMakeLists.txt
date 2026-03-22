@@ -14,6 +14,7 @@ enable_testing()
 add_library(pinky_lib
 	src/Lexer.cpp
 	src/Model.cpp
+	src/Parser.cpp
 	src/Token.cpp
 	src/Utils.cpp
 )
@@ -48,5 +49,5 @@ add_executable(parser_tests
 target_link_libraries(parser_tests PRIVATE pinky_lib)
 
 add_test(NAME lexer_tests COMMAND lexer_tests)
-add_test(NAME parser_tests COMMAND parser_tests)
 add_test(NAME model_tests COMMAND model_tests)
+add_test(NAME parser_tests COMMAND parser_tests)

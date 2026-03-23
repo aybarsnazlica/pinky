@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Token.h"
+#include "pinky/Token.h"
 
 namespace pinky {
 

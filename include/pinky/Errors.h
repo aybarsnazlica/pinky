@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "Utils.h"
+#include "pinky/Utils.h"
 
 namespace pinky {
 class LexingError : public std::runtime_error {

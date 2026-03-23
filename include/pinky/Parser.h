@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "Model.h"
-#include "Token.h"
+#include "pinky/Model.h"
+#include "pinky/Token.h"
 
 namespace pinky {
 

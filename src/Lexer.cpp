@@ -1,5 +1,5 @@
-#include "Lexer.h"
-#include "Errors.h"
+#include "pinky/Lexer.h"
+#include "pinky/Errors.h"
 
 namespace pinky {
 namespace {

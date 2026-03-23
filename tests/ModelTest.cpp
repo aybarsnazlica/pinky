@@ -1,4 +1,4 @@
-#include "Model.h"
+#include "pinky/Model.h"
 #include "TestFramework.h"
 
 #include <memory>

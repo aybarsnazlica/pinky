@@ -11,7 +11,7 @@ include(CTest)
 
 enable_testing()
 
-add_library(pinky_lib
+add_library(pinky_core
 	src/Lexer.cpp
 	src/Model.cpp
 	src/Parser.cpp
@@ -19,11 +19,11 @@ add_library(pinky_lib
 	src/Utils.cpp
 )
 
-target_include_directories(pinky_lib PUBLIC include)
+target_include_directories(pinky_core PUBLIC include)
 
 add_executable(pinky src/main.cpp)
 target_compile_definitions(pinky PRIVATE PINKY_SEPARATE_COMPILATION)
-target_link_libraries(pinky PRIVATE pinky_lib)
+target_link_libraries(pinky PRIVATE pinky_core)
 
 install(
 	TARGETS pinky
@@ -31,22 +31,22 @@ install(
 )
 
 add_executable(lexer_tests
-	tests/TestMain.cpp
+	tests/main.cpp
 	tests/LexerTest.cpp
 )
-target_link_libraries(lexer_tests PRIVATE pinky_lib)
+target_link_libraries(lexer_tests PRIVATE pinky_core)
 
 add_executable(model_tests
-	tests/TestMain.cpp
+	tests/main.cpp
 	tests/ModelTest.cpp
 )
-target_link_libraries(model_tests PRIVATE pinky_lib)
+target_link_libraries(model_tests PRIVATE pinky_core)
 
 add_executable(parser_tests
-	tests/TestMain.cpp
+	tests/main.cpp
 	tests/ParserTest.cpp
 )
-target_link_libraries(parser_tests PRIVATE pinky_lib)
+target_link_libraries(parser_tests PRIVATE pinky_core)
 
 add_test(NAME lexer_tests COMMAND lexer_tests)
 add_test(NAME model_tests COMMAND model_tests)

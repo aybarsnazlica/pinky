@@ -4,8 +4,8 @@
 #include <vector>
 
 #include "TestFramework.h"
-#include "Lexer.h"
-#include "Token.h"
+#include "pinky/Lexer.h"
+#include "pinky/Token.h"
 
 namespace pinky {
 struct LexerTestAccess {

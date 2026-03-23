@@ -1,4 +1,4 @@
-#include "Token.h"
+#include "pinky/Token.h"
 
 #include <iomanip>
 #include <sstream>

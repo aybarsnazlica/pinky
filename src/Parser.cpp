@@ -1,6 +1,6 @@
-#include "Parser.h"
+#include "pinky/Parser.h"
 
-#include "Token.h"
+#include "pinky/Token.h"
 
 namespace pinky {
 Parser::Parser(std::vector<Token> tokens, std::size_t current)

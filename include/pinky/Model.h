@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Token.h"
+#include "pinky/Token.h"
 
 #include <iosfwd>
 #include <memory>

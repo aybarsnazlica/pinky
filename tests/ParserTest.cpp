@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "TestFramework.h"
+#include "pinky/Token.h"
 
 namespace pinky {
 struct ParserTestAccess {
@@ -39,7 +40,7 @@ void TestAdvanceMovesForward() {
               "first token lexeme mismatch");
   ExpectEqual(first.Line, 1, "first token line mismatch");
   ExpectEqual(pinky::ParserTestAccess::Curr(parser),
-              static_cast<std::size_t>(1),
+              std::size_t{1},
               "current index after first advance mismatch");
 
   const auto second = parser.Advance();
@@ -48,7 +49,7 @@ void TestAdvanceMovesForward() {
   ExpectEqual(second.Lexeme, std::string("42"), "second token lexeme mismatch");
   ExpectEqual(second.Line, 2, "second token line mismatch");
   ExpectEqual(pinky::ParserTestAccess::Curr(parser),
-              static_cast<std::size_t>(2),
+              std::size_t{2},
               "current index after second advance mismatch");
 }
 
@@ -61,7 +62,7 @@ void TestPeekReturnsCurrentToken() {
   ExpectEqual(token.Lexeme, std::string("42"), "peek token lexeme mismatch");
   ExpectEqual(token.Line, 2, "peek token line mismatch");
   ExpectEqual(pinky::ParserTestAccess::Curr(parser),
-              static_cast<std::size_t>(1),
+              std::size_t{1},
               "peek should not advance current index");
 }
 
@@ -90,7 +91,7 @@ void TestExpectReturnsAndAdvancesOnMatch() {
   ExpectEqual(token.Lexeme, std::string("42"),
               "Expect() token lexeme mismatch");
   ExpectEqual(pinky::ParserTestAccess::Curr(parser),
-              static_cast<std::size_t>(2),
+              std::size_t{2},
               "Expect() should advance current index on match");
 }
 
@@ -106,7 +107,7 @@ void TestExpectThrowsOnMismatch() {
                 std::string("Expected TOK_IDENTIFIER found 42"),
                 "mismatch parse error message mismatch");
     ExpectEqual(pinky::ParserTestAccess::Curr(parser),
-                static_cast<std::size_t>(1),
+                std::size_t{1},
                 "Expect() should not advance on mismatch");
   }
 }
@@ -123,7 +124,7 @@ void TestExpectThrowsAtEndOfParsing() {
                 std::string("Found print at the end of parsing"),
                 "end-of-parse error message mismatch");
     ExpectEqual(
-        pinky::ParserTestAccess::Curr(parser), static_cast<std::size_t>(3),
+        pinky::ParserTestAccess::Curr(parser), std::size_t{3},
         "Expect() should leave current index unchanged at end of parsing");
   }
 }
@@ -138,7 +139,7 @@ void TestPreviousTokenReturnsPriorTokenWithoutMutatingParser() {
               "PreviousToken() lexeme mismatch");
   ExpectEqual(token.Line, 2, "PreviousToken() line mismatch");
   ExpectEqual(pinky::ParserTestAccess::Curr(parser),
-              static_cast<std::size_t>(2),
+              std::size_t{2},
               "PreviousToken() should not mutate current index");
 }
 

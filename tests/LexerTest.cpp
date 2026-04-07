@@ -114,7 +114,7 @@ void TestHandleNumberAddsIntegerToken() {
   lexer.HandleNumber();
 
   const auto &tokens = TokensOf(lexer);
-  ExpectEqual(tokens.size(), static_cast<std::size_t>(1),
+  ExpectEqual(tokens.size(), std::size_t{1},
               "token count mismatch");
   ExpectEqual(tokens[0].Kind, pinky::TokenType::Integer, "token type mismatch");
   ExpectEqual(tokens[0].Lexeme, std::string("123"), "lexeme mismatch");
@@ -125,7 +125,7 @@ void TestHandleNumberAddsFloatToken() {
   lexer.HandleNumber();
 
   const auto &tokens = TokensOf(lexer);
-  ExpectEqual(tokens.size(), static_cast<std::size_t>(1),
+  ExpectEqual(tokens.size(), std::size_t{1},
               "token count mismatch");
   ExpectEqual(tokens[0].Kind, pinky::TokenType::Float, "token type mismatch");
   ExpectEqual(tokens[0].Lexeme, std::string("12.5"), "lexeme mismatch");
@@ -136,7 +136,7 @@ void TestHandleStringAddsStringToken() {
   lexer.HandleString('"');
 
   const auto &tokens = TokensOf(lexer);
-  ExpectEqual(tokens.size(), static_cast<std::size_t>(1),
+  ExpectEqual(tokens.size(), std::size_t{1},
               "token count mismatch");
   ExpectEqual(tokens[0].Kind, pinky::TokenType::String, "token type mismatch");
   ExpectEqual(tokens[0].Lexeme, std::string("\"abc\""), "lexeme mismatch");
@@ -167,7 +167,7 @@ void TestAddTokenUsesCurrentSliceAndLine() {
   lexer.AddToken(pinky::TokenType::Identifier);
 
   const auto &tokens = TokensOf(lexer);
-  ExpectEqual(tokens.size(), static_cast<std::size_t>(1),
+  ExpectEqual(tokens.size(), std::size_t{1},
               "token count mismatch");
   ExpectEqual(tokens[0].Kind, pinky::TokenType::Identifier,
               "token type mismatch");

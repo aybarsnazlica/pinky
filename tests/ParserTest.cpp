@@ -141,6 +141,52 @@ void TestPreviousTokenReturnsPriorTokenWithoutMutatingParser() {
               static_cast<std::size_t>(2),
               "PreviousToken() should not mutate current index");
 }
+
+void TestMatchMatchesCurrentToken() {
+  auto parser = MakeParser(1);
+
+  ExpectTrue(parser.Match(pinky::TokenType::Integer),
+             "expected current token type to match");
+  ExpectEqual(pinky::ParserTestAccess::Curr(parser),
+              std::size_t{2},
+              "Match() should advance current index on match");
+}
+
+void TestMatchReturnsFalseOnMismatchWithoutAdvancing() {
+  auto parser = MakeParser(1);
+
+  ExpectTrue(!parser.Match(pinky::TokenType::Identifier),
+             "expected non-matching token type to return false");
+  ExpectEqual(pinky::ParserTestAccess::Curr(parser),
+              std::size_t{1},
+              "Match() should not advance current index on mismatch");
+}
+
+void TestMatchReturnsFalseAtEndWithoutAdvancing() {
+  auto parser = MakeParser(3);
+
+  ExpectTrue(!parser.Match(pinky::TokenType::Print),
+             "expected Match() to return false at end of tokens");
+  ExpectEqual(pinky::ParserTestAccess::Curr(parser),
+              std::size_t{3},
+              "Match() should not advance current index at end of tokens");
+}
+
+void TestMatchCanBeUsedSequentially() {
+  auto parser = MakeParser();
+
+  ExpectTrue(parser.Match(pinky::TokenType::Identifier),
+             "expected first Match() call to consume the identifier");
+  ExpectTrue(parser.Match(pinky::TokenType::Integer),
+             "expected second Match() call to consume the integer");
+  ExpectTrue(!parser.Match(pinky::TokenType::Integer),
+             "expected Match() to return false after tokens change");
+  ExpectEqual(pinky::ParserTestAccess::Curr(parser),
+              std::size_t{2},
+              "Match() should only advance for successful calls");
+}
+
+
 } // namespace
 
 namespace pinky::test {
@@ -157,6 +203,12 @@ const std::vector<TestCase> &RegisteredTests() {
       {"TESTExpectThrowsAtEndOfParsing", TestExpectThrowsAtEndOfParsing},
       {"TESTPreviousTokenReturnsPriorTokenWithoutMutatingParser",
        TestPreviousTokenReturnsPriorTokenWithoutMutatingParser},
+      {"TESTMatchMatchesCurrentToken", TestMatchMatchesCurrentToken},
+      {"TESTMatchReturnsFalseOnMismatchWithoutAdvancing",
+       TestMatchReturnsFalseOnMismatchWithoutAdvancing},
+      {"TESTMatchReturnsFalseAtEndWithoutAdvancing",
+       TestMatchReturnsFalseAtEndWithoutAdvancing},
+      {"TESTMatchCanBeUsedSequentially", TestMatchCanBeUsedSequentially},
   };
   return tests;
 }

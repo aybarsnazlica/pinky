@@ -41,5 +41,15 @@ Token Parser::PreviousToken() const {
   return Tokens[Current - 1];
 }
 
+bool Parser::Match(TokenType expectedType) {
+  if (Current >= Tokens.size()) {
+    return false;
+  }
+  if (Peek().Kind != expectedType) {
+    return false;
+  }
+  ++Current;
+  return true;
+}
 
 } // namespace pinky
